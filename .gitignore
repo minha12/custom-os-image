@@ -1,0 +1,11 @@
+# .gitignore
+.env
+*.qcow2
+*.img
+*.iso
+*.deb
+*.log
+__pycache__/
+*.pyc
+.DS_Store
+
