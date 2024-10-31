@@ -23,10 +23,17 @@ function wait_for_ssh() {
 # Function to load environment variables from .env
 function load_env() {
     if [ -f "$(dirname "$0")/../.env" ]; then
-        export $(grep -v '^#' "$(dirname "$0")/../.env" | xargs)
+        set -o allexport
+        source "$(dirname "$0")/../.env"
+        set +o allexport
     else
         echo ".env file not found!"
         exit 1
     fi
+    
+    # Reconstruct DEFAULT_GPU_DEVICES as an array
+    IFS=',' read -r -a DEFAULT_GPU_DEVICES <<< "${DEFAULT_GPU_DEVICES//[()]/}"
 }
 
+
+load_env
