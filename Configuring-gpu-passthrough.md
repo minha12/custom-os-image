@@ -6,7 +6,7 @@ You need to install necessary tools like `qemu-kvm`, `libvirt`, and `virt-manage
 
 ```bash
 sudo apt update
-sudo apt install qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils virt-manager
+sudo apt install qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils virt-manager cloud-utils
 ```
 
 Ensure that KVM is installed and the system supports virtualization:
