@@ -31,8 +31,12 @@ function load_env() {
         exit 1
     fi
     
-    # Reconstruct DEFAULT_GPU_DEVICES as an array
-    IFS=',' read -r -a DEFAULT_GPU_DEVICES <<< "${DEFAULT_GPU_DEVICES//[()]/}"
+    # Reconstruct DEFAULT_GPU_DEVICES as an array, handle empty array
+    if [ -z "${DEFAULT_GPU_DEVICES:-}" ]; then
+        DEFAULT_GPU_DEVICES=()
+    else
+        IFS=',' read -r -a DEFAULT_GPU_DEVICES <<< "${DEFAULT_GPU_DEVICES//[()]/}"
+    fi
 }
 
 
