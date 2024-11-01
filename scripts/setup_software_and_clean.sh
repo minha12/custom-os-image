@@ -36,14 +36,14 @@ echo "SSH connection established."
 
 # Copy scripts to VM
 echo "Copying install scripts to VM..."
-scp "$(dirname "$0")/install_cuda_12_4.sh" "$(dirname "$0")/clean_up.sh" "$VM_USERNAME@$IP_ADDR:/tmp/"
+scp "$(dirname "$0")/install_miniforge.sh"  "$(dirname "$0")/install_cuda_12_4.sh" "$(dirname "$0")/clean_up.sh" "$VM_USERNAME@$IP_ADDR:/tmp/"
 
 # Set execute permissions
 echo "Setting execute permissions on scripts inside VM..."
-ssh "$VM_USERNAME@$IP_ADDR" 'sudo chmod +x /tmp/install_cuda_12_4.sh && sudo chmod +x /tmp/clean_up.sh'
+ssh "$VM_USERNAME@$IP_ADDR" 'sudo chmod +x /tmp/install_miniforge.sh && sudo chmod +x /tmp/install_cuda_12_4.sh && sudo chmod +x /tmp/clean_up.sh'
 
 # Run scripts with sudo
 echo "Running install and cleanup scripts inside VM..."
-ssh "$VM_USERNAME@$IP_ADDR" 'sudo /tmp/install_cuda_12_4.sh && sudo /tmp/clean_up.sh'
+ssh "$VM_USERNAME@$IP_ADDR" '/tmp/install_miniforge.sh && sudo /tmp/install_cuda_12_4.sh && sudo /tmp/clean_up.sh'
 
 echo "Software setup and cleanup completed on VM $VM_NAME."
