@@ -43,7 +43,30 @@ echo "Setting execute permissions on scripts inside VM..."
 ssh "$VM_USERNAME@$IP_ADDR" 'sudo chmod +x /tmp/install_miniforge.sh && sudo chmod +x /tmp/install_cuda_12_4.sh && sudo chmod +x /tmp/clean_up.sh'
 
 # Run scripts with sudo
-echo "Running install and cleanup scripts inside VM..."
-ssh "$VM_USERNAME@$IP_ADDR" '/tmp/install_miniforge.sh && sudo /tmp/install_cuda_12_4.sh && sudo /tmp/clean_up.sh'
+ssh "$VM_USERNAME@$IP_ADDR" '
+    set -e;
+    
+    # Install Miniforge
+    echo "Installing Miniforge...";
+    if ! /tmp/install_miniforge.sh; then
+        echo "Error: Miniforge installation failed";
+        # Do not stop script entirely, proceed to CUDA installation
+    fi
+
+    # Install CUDA
+    echo "Installing CUDA...";
+    if ! sudo /tmp/install_cuda_12_4.sh; then
+        echo "Error: CUDA installation failed";
+        # Proceed to cleanup anyhow
+    fi
+
+    # Clean up operations
+    echo "Running cleanup...";
+    if ! sudo /tmp/clean_up.sh; then
+        echo "Error: Cleanup failed";
+    fi
+
+    echo "All tasks complete!";
+'
 
 echo "Software setup and cleanup completed on VM $VM_NAME."
