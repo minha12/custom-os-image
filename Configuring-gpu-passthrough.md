@@ -17,6 +17,20 @@ sudo kvm-ok
 
 You should see something like `KVM acceleration can be used` if it's supported.
 
+**Add yourself to the necessary groups:**
+   ```sh
+   sudo adduser $USER libvirt
+   sudo adduser $USER kvm
+   newgrp libvirt
+   newgrp kvm
+   ```
+
+**Ensure `libvirtd` service is running:**
+   ```sh
+   sudo systemctl start libvirtd
+   sudo systemctl enable libvirtd
+   ```
+   
 ### 2. Verify IOMMU Support
 
 Check if your system supports IOMMU by running:
