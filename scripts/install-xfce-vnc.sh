@@ -58,40 +58,9 @@ else
     fi
 fi
 
-# Optional: Create systemd service for automatic VNC start on boot
-read -p "Do you want to create a systemd service to automatically start VNC on boot? (y/n): " create_service
-if [[ $create_service == "y" || $create_service == "Y" ]]; then
-    echo "Creating VNC systemd service..."
-    sudo bash -c 'cat << EOF > /etc/systemd/system/vncserver@:1.service
-[Unit]
-Description=Start TightVNC for user %i at display :1
-After=network.target
-
-[Service]
-Type=forking
-User=$USER
-WorkingDirectory=/home/$USER
-PAMName=login
-PIDFile=/home/$USER/.vnc/%H:1.pid
-ExecStartPre=-/usr/bin/vncserver -kill :1 > /dev/null 2>&1
-ExecStart=/usr/bin/vncserver :1 -geometry 1920x1080 -depth 24
-ExecStop=/usr/bin/vncserver -kill :1
-
-[Install]
-WantedBy=multi-user.target
-EOF'
-
-    # Reload systemd to recognize the new service
-    sudo systemctl daemon-reload
-
-    # Enable VNC service (start on boot)
-    sudo systemctl enable vncserver@:1.service
-    echo "VNC systemd service created and enabled."
-else
-    echo "Skipping systemd service creation."
-fi
-
+vncserver :1
 echo "VNC server and XFCE installation complete."
+
 echo "To start VNC again, use: vncserver :1"
 
 # Completed the setup
