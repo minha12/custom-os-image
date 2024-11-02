@@ -36,16 +36,20 @@ echo "SSH connection established."
 
 # Copy scripts to VM
 echo "Copying install scripts to VM..."
-scp "$(dirname "$0")/install_miniforge.sh"  "$(dirname "$0")/install_cuda_12_4.sh" "$(dirname "$0")/clean_up.sh" "$VM_USERNAME@$IP_ADDR:/tmp/"
+scp "$(dirname "$0")/install_miniforge.sh" \
+     "$(dirname "$0")/install_cuda_12_4.sh" \
+     "$(dirname "$0")/clean_up.sh" \
+     "$(dirname "$0")/install-xfce-vnc.sh" \
+     "$VM_USERNAME@$IP_ADDR:/tmp/"
 
 # Set execute permissions
 echo "Setting execute permissions on scripts inside VM..."
-ssh "$VM_USERNAME@$IP_ADDR" 'sudo chmod +x /tmp/install_miniforge.sh && sudo chmod +x /tmp/install_cuda_12_4.sh && sudo chmod +x /tmp/clean_up.sh'
+ssh "$VM_USERNAME@$IP_ADDR" 'sudo chmod +x /tmp/install_miniforge.sh && sudo chmod +x /tmp/install_cuda_12_4.sh && sudo chmod +x /tmp/clean_up.sh && sudo chmod +x /tmp/install-xfce-vnc.sh'
 
 # Run scripts with sudo
 ssh "$VM_USERNAME@$IP_ADDR" '
     set -e;
-    
+
     # Install Miniforge
     echo "Installing Miniforge...";
     if ! /tmp/install_miniforge.sh; then
@@ -57,6 +61,13 @@ ssh "$VM_USERNAME@$IP_ADDR" '
     echo "Installing CUDA...";
     if ! sudo /tmp/install_cuda_12_4.sh; then
         echo "Error: CUDA installation failed";
+        # Proceed to cleanup anyhow
+    fi
+
+    # Install XFCE and VNC Server
+    echo "Installing XFCE and TightVNC server...";
+    if ! sudo /tmp/install-xfce-vnc.sh; then
+        echo "Error: XFCE and TightVNC installation failed";
         # Proceed to cleanup anyhow
     fi
 
