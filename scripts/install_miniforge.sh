@@ -75,7 +75,11 @@ fi
 echo "Reloading .bashrc..."
 source "$HOME/.bashrc"
 
-# Step 8: Optional cleanup of the installer
+# Step 8: Install JupyterLab using Mamba
+echo "Installing JupyterLab..."
+"$MINIFORGE_PATH"/bin/mamba install -c conda-forge jupyterlab
+
+# Step 9: Optional cleanup of the installer
 echo "Cleaning up downloaded installer..."
 rm -f "$INSTALLER_FILE"
 
