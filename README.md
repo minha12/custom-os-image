@@ -115,6 +115,16 @@ This script will:
 - **`packing_os_images.sh`**: Packages the VM image for reuse.
 - **`common.sh`**: Contains common functions used by other scripts.
 
+## **Running Remote Desktop with XFCE and TightVPN**
+- If vpn at server side haven't started: `vncserver :1`
+- Install `RealVNC` at client side
+- Run ssh port forwarding at client side: `ssh -L 5901:localhost:5901 <vm_user>@<vm_IP>`
+
+## **Running Jupter Lab**
+- ssh to the VM
+- Run: `nohub jupyter lab --ip=0.0.0.0 --port=8888 --no-browser`
+- At client side: `ssh -NfL localhost:8888:localhost:8888 <vm_user>@vm_IP`
+
 ## **Configuration Files**
 
 - **`user-data-template.yaml`**: Cloud-init user data template.
