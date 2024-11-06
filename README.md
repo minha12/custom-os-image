@@ -116,6 +116,7 @@ This script will:
 - **`common.sh`**: Contains common functions used by other scripts.
 
 ## **Running Remote Desktop with XFCE and TightVPN**
+- Run `sudo chown -R ubuntu:ubuntu ~/.vnc`
 - If vpn at server side haven't started: `vncserver :1`
 - Install `RealVNC` at client side
 - Run ssh port forwarding at client side: `ssh -L 5901:localhost:5901 <vm_user>@<vm_IP>`
