@@ -37,8 +37,8 @@ project-root/
 ### **1. Clone the Repository**
 
 ```bash
-git clone https://github.com/minha12/os-image-verdi.git
-cd os-image-verdi
+git clone https://github.com/minha12/custom-os-image.git
+cd custom-os-image
 ```
 
 ### **2. Configure Environment Variables**
