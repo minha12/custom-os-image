@@ -1,7 +1,7 @@
 
-# Verdi OS Image Customization Pipeline
+# OS Image Customization Pipeline
 
-This repository provides a pipeline for creating and customizing OS images with pre-installed software and drivers. It is primarily used for preparing images that include NVIDIA GPU drivers, CUDA, and various software packages for remote desktop access, data science, and machine learning on the Verdi system.
+This repository provides a pipeline for creating and customizing OS images with pre-installed software and drivers. It is primarily used for preparing images that include NVIDIA GPU drivers, CUDA, and various software packages for remote desktop access, data science, and machine learning.
 
 The pipeline automates the creation of VM-based OS images, installs necessary software components, and packages the image for deployment or reuse. The customized images are designed to be used in environments where GPU acceleration and machine learning frameworks are essential.
 
